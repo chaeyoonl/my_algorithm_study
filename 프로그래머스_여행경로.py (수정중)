@@ -1,0 +1,23 @@
+
+def dfs(s, tickets, answer):
+    answer.append(s)
+    if len(tickets) == 0:
+        return 0
+    
+    
+    for i in tickets:
+        if (s == i[0]):
+            tickets.remove(i)
+            dfs(i[1], tickets, answer)
+
+def solution(tickets):
+    answer = []
+    
+    tickets.sort()
+
+        
+        
+    dfs("ICN", tickets, answer)
+    # print(answer)
+    
+    return answer
