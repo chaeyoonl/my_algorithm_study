@@ -1,0 +1,41 @@
+def solution(name):
+    answer = 0
+    checkContinue = False
+
+    for i, str in enumerate(name):
+        if str == "A":
+            idA = 0
+            # print(i)
+            j = i
+            while name[j] == "A":
+                checkContinue = True
+                j+=1
+                idA += 1
+                # print(j)
+                if idA > (len(name) - idA):
+                    i += idA
+                else:
+                    i-=2
+                    if i < 0:
+                        i = len(name) - 1
+                    print(i)
+
+            print(idA)
+        if checkContinue == True:
+            checkContinue = False
+            continue
+
+        answer += 1
+        if ord(str) >= ord("N"):
+            tmp = abs(ord("Z") - ord(str) + 1)
+        else:
+            tmp = abs(ord(str) - ord("A"))
+
+        answer += tmp
+
+
+    return answer-1
+
+
+#print(solution("BBAAAAABBB"))
+# print(ord("Z"))
