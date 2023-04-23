@@ -1,0 +1,36 @@
+from collections import deque
+
+def bfs(answer, queue, n, edge, visited):
+    queue.append(1)
+    visited[1] = True
+    tmp_answer = [1]*(len(edge)+1)
+    # tmp_answer[1] = 1
+    
+    while (queue):
+        start = queue.pop()
+        for i in edge:
+            if (start in i and visited[i[1]] == False):
+                tmp_answer[i[1]] = tmp_answer[start]+1
+                queue.append(i[1])
+                visited[i[1]] = True
+                
+                
+    # print(tmp_answer)
+    return max(tmp_answer)
+
+
+def solution(n, edge):   
+    answer = 0
+    queue = deque()
+    visited = [False]*(len(edge)+1)
+    new_edges = []
+    
+    for i in edge:
+        new_edges.append([i[1], i[0]])
+    edge.extend(new_edges)
+    
+    answer = bfs(answer, queue, n, edge, visited)
+    
+    
+    
+    return answer
