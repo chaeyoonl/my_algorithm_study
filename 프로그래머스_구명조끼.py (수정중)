@@ -1,0 +1,19 @@
+def solution(people, limit):
+    answer = 0
+    tmp_limit = 0
+
+    people.sort()
+    if people[0] <= limit:
+        answer += 1
+
+    for i in people:
+        if i <= limit:
+            tmp_limit += i
+            if tmp_limit > limit:
+                tmp_limit = i
+                answer += 1
+
+
+
+
+    return answer
