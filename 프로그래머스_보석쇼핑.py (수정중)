@@ -1,21 +1,29 @@
 def solution(gems):
     answer = []
-    compare = list(set(gems))
+    gems_dic = {gem: 0 for gem in gems}
     start = 1
     end = 0
-    s_list = []
-    e_list = []
 
-    while (end < len(gems) and compare != list(set(e_list))):
-        if gems[end] in e_list:
-            s_list.append(gems[end])
-        e_list.append(gems[end])
-        end += 1
-        if (list(set(s_list)) == list(set(e_list))):
-            start = len(s_list)
+    print(gems_dic)
 
+    for number, name in enumerate(gems):
 
+        if (name == gems[number]):
+            gems_dic[name] += 1
+            end += 1
+        if all(gems_dic.values()):
+            break
+
+    print(gems_dic)
+
+    for number, name in enumerate(gems):
+        if (gems_dic[name] > 1):
+            start += 1
+            gems_dic[name] -= 1
+        else:
+            break
+
+    print(gems_dic)
     answer.append(start)
     answer.append(end)
-
     return answer
