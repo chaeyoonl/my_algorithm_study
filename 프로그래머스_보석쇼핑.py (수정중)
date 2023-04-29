@@ -1,22 +1,19 @@
 def solution(gems):
     answer = []
     compare = list(set(gems))
+    start = 1
     end = 0
     s_list = []
     e_list = []
 
-    for start in range(len(gems)):
-        while (end < len(gems) and compare != list(set(e_list))):
-            if gems[end] in e_list:
-                s_list.append(gems[end])
-            e_list.append(gems[end])
-            end += 1
-            if (list(set(s_list)) == list(set(e_list))):
-                break
+    while (end < len(gems) and compare != list(set(e_list))):
+        if gems[end] in e_list:
+            s_list.append(gems[end])
+        e_list.append(gems[end])
+        end += 1
+        if (list(set(s_list)) == list(set(e_list))):
+            start = len(s_list)
 
-        if (compare == list(set(e_list))):
-            start = start + 1
-            break
 
     answer.append(start)
     answer.append(end)
