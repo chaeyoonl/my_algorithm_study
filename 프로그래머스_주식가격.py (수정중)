@@ -1,0 +1,12 @@
+def solution(prices):
+    answer = []
+
+    for i, data in enumerate(prices):
+        tmp = len(prices)-1-i
+        for j, data2 in enumerate(prices):
+            if i < j and data > data2:
+                tmp -= 1
+        answer.append(tmp)
+
+
+    return answer
