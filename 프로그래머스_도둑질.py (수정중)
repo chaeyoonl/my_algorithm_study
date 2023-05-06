@@ -1,0 +1,11 @@
+def solution(money):
+    answer = 0
+    
+    for i in range(2, len(money)):
+        money[i] += money[i-2]
+        
+    answer = max(money)
+    
+    
+    
+    return answer
