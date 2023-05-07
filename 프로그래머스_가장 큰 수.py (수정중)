@@ -1,0 +1,13 @@
+def solution(numbers):
+    answer = ''
+    numberIndex = 0
+    
+    
+    for i in range(len(str(max(numbers)))):
+        numbers = sorted(numbers, key = lambda x:int(str(x)[i]), reverse = True)
+    
+    for i in numbers:
+        answer += i
+    
+    
+    return answer
