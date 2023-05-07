@@ -1,0 +1,22 @@
+def solution(strings, n):
+    answer = []
+    tmp = []
+    
+    for i in strings: 
+        tmp.append(i[n])
+        
+    tmp.sort()
+    strings.sort()
+            
+    while tmp:
+        for i in strings:
+            if tmp:
+                if tmp[0] == i[n]:
+                    answer.append(i)
+                    tmp.pop(0)
+            else:
+                break
+    
+    
+    
+    return answer
