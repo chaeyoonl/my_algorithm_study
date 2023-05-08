@@ -1,0 +1,24 @@
+
+T = int(input())
+N = []
+fibonacci = [0, 1]
+
+for i in range(T):
+    N.append(int(input()))
+
+N.sort()
+
+for i in range(max(N)+1):
+    if i==0:
+        if i in N:
+            print(1, 0)
+    elif i==1:
+        if i in N:
+            print(0, 1)
+    else:
+        fibonacci.append(fibonacci[i-2]+fibonacci[i-1])
+        if i in N:
+            print(fibonacci[i-1], fibonacci[i])
+
+
+
