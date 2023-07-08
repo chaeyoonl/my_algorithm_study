@@ -1,0 +1,49 @@
+import sys
+from collections import deque
+
+
+def BFS(start, end, listData, visited):
+    visited[start] = True
+    queue = deque()
+    queue.append(start)
+
+    while queue:
+        data = queue.popleft()
+
+        if data == end:
+            break
+
+        for i, j in listData:
+            if data == i:
+                visited[j] = True
+                queue.append(j)
+
+            
+
+
+
+N, M = map(int, input().split())
+listData = []
+sVisited = [False]*(N+1)
+tVisited = [False]*(N+1)
+answer = 0
+
+for i in range(M):
+    tmpList = []
+    data1, data2 = map(int, input().split())
+    tmpList.append(data1)
+    tmpList.append(data2)
+    listData.append(tmpList)
+
+S, T = map(int, input().split())
+
+
+BFS(S, T, listData, sVisited)
+BFS(T, S, listData, tVisited)
+
+
+for i in range(len(sVisited)):
+    if sVisited[i] == True and tVisited[i] == True and i != S and i != T:
+        answer+=1
+
+print(answer)
