@@ -1,0 +1,8 @@
+def solution(arr1, arr2):
+    answer = [[]]
+    
+    for i in arr1:
+        for j in arr2:
+            print(i, j)
+            
+    return answer
