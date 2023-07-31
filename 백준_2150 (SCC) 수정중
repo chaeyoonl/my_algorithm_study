@@ -1,0 +1,57 @@
+
+tmpStack = []
+calStack = []
+answerList = [] #TODO
+
+def stackData():
+    tmp = tmpStack.pop()
+    calStack.append(tmp)
+
+def checkSCC(listData, visited):
+    start = calStack.pop()
+    visited[start] = True
+    tmpList = []    #TODO
+    tmpList.append(start)
+
+    for i in listData:
+        if i[0] == start and visited[i[1]] == False:
+            tmpList.append(i[1])
+
+
+    DFS(i[1], listData, visited)
+
+
+def changeListData(listData):
+    tmpList = []
+    for i in listData:
+        tmpList.append([i[1], i[0]])
+
+    return tmpList
+
+def DFS(start, listData, visited):
+    global tmpStack, calStack
+    visited[start] = True
+    tmpStack.append(start)
+    for i in listData:
+        if i[0] == start and visited[i[1]] == False:
+            DFS(i[1], listData, visited)
+
+    stackData()
+
+
+V, E = map(int, input().split())
+listData = []
+visited = [False]*(V+1)
+
+for i in range(E):
+    tmpList = []
+    A, B = map(int, input().split())
+    tmpList.append(A)
+    tmpList.append(B)
+    listData.append(tmpList)
+
+
+DFS(1, listData, visited)
+listData = changeListData(listData)
+visited = [False]*(V+1)
+checkSCC(listData, visited)
