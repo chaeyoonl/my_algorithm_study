@@ -1,25 +1,38 @@
 
 tmpStack = []
 calStack = []
-answerList = [] #TODO
+answerList = []
 
 def stackData():
     tmp = tmpStack.pop()
     calStack.append(tmp)
 
-def checkSCC(listData, visited):
-    start = calStack.pop()
-    visited[start] = True
-    tmpList = []    #TODO
-    tmpList.append(start)
+def checkNumberInList(nested_list, number_to_find):
+    for item in nested_list:
+        if item == number_to_find:
+            return False
+    return True
 
-    for i in listData:
-        if i[0] == start and visited[i[1]] == False:
-            tmpList.append(i[1])
+def checkSCC(start, tmpList, listData):
+    checkData = 0
+    if checkNumberInList(tmpList, start):
+        tmpList.append(start)
 
+    if len(listData) != 0 and len(calStack) != 0:
 
-    DFS(i[1], listData, visited)
+        for i in listData:
+            if i[0] == start:
 
+                listData.remove(i)
+                if any(sublist[0] == i[1] for sublist in listData):
+                    checkData = 1
+                    checkSCC(i[1], tmpList, listData)
+
+        if checkData == 0:
+            start = calStack.pop()
+            answerList.append(tmpList)
+            tmpList = []
+            checkSCC(start, tmpList, listData)
 
 def changeListData(listData):
     tmpList = []
@@ -53,5 +66,14 @@ for i in range(E):
 
 DFS(1, listData, visited)
 listData = changeListData(listData)
-visited = [False]*(V+1)
-checkSCC(listData, visited)
+checkSCC(calStack.pop(), [], listData)
+
+answerList = sorted(answerList, key= lambda x:sorted(x))
+for i in range(len(answerList)):
+    answerList[i] = sorted(answerList[i])
+
+
+print(len(answerList))
+
+for sublist in answerList:
+    print(' '.join(str(item) for item in sublist) + " -1")
