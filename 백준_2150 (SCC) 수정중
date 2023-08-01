@@ -1,7 +1,6 @@
 import sys
 sys.setrecursionlimit(10 ** 6)
 
-
 tmpStack = []
 calStack = []
 answerList = []
@@ -46,14 +45,14 @@ def changeListData(listData):
 
 def DFS(start, listData, visited):
     global tmpStack, calStack
+    if visited[start] == True:
+        return
     visited[start] = True
     tmpStack.append(start)
     for i in listData:
         if i[0] == start and visited[i[1]] == False:
             DFS(i[1], listData, visited)
-
     stackData()
-
 
 V, E = map(int, input().split())
 listData = []
@@ -65,11 +64,14 @@ for i in range(E):
     tmpList.append(A)
     tmpList.append(B)
     listData.append(tmpList)
+reversed_listData = changeListData(listData)
 
+for i in range(1, V+1):
+    DFS(i, listData, visited)
 
-DFS(1, listData, visited)
-listData = changeListData(listData)
-checkSCC(calStack.pop(), [], listData)
+print(calStack)
+
+checkSCC(calStack.pop(), [], reversed_listData)
 
 answerList = sorted(answerList, key= lambda x:sorted(x))
 for i in range(len(answerList)):
