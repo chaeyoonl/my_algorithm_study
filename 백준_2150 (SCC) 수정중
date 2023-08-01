@@ -15,26 +15,17 @@ def checkNumberInList(nested_list, number_to_find):
             return False
     return True
 
-def checkSCC(start, tmpList, listData):
-    checkData = 0
-    if checkNumberInList(tmpList, start):
-        tmpList.append(start)
+def reverseDFS(start, tmpList, listData, visited):
+    global calStack
+    if visited[start] == True:
+        return
 
-    if len(listData) != 0 and len(calStack) != 0:
+    visited[start] = True
+    tmpList.append(start)
+    for i in listData:
+        if i[0] == start and visited[i[1]] == False:
+            reverseDFS(i[1], tmpList, listData, visited)
 
-        for i in listData:
-            if i[0] == start:
-
-                listData.remove(i)
-                if any(sublist[0] == i[1] for sublist in listData):
-                    checkData = 1
-                    checkSCC(i[1], tmpList, listData)
-
-        if checkData == 0:
-            start = calStack.pop()
-            answerList.append(tmpList)
-            tmpList = []
-            checkSCC(start, tmpList, listData)
 
 def changeListData(listData):
     tmpList = []
@@ -69,16 +60,20 @@ reversed_listData = changeListData(listData)
 for i in range(1, V+1):
     DFS(i, listData, visited)
 
-print(calStack)
 
-checkSCC(calStack.pop(), [], reversed_listData)
+visited = [False]*(V+1)
+
+while calStack:
+    sccList = []
+    node = calStack.pop()
+    reverseDFS(node, sccList, reversed_listData, visited)
+    if len(sccList) != 0:
+        answerList.append(sorted(sccList))
 
 answerList = sorted(answerList, key= lambda x:sorted(x))
-for i in range(len(answerList)):
-    answerList[i] = sorted(answerList[i])
-
 
 print(len(answerList))
 
-for sublist in answerList:
-    print(' '.join(str(item) for item in sublist) + " -1")
+for i in answerList:
+    print(*i, -1)
+
