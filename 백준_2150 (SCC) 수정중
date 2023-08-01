@@ -9,11 +9,6 @@ def stackData():
     tmp = tmpStack.pop()
     calStack.append(tmp)
 
-def checkNumberInList(nested_list, number_to_find):
-    for item in nested_list:
-        if item == number_to_find:
-            return False
-    return True
 
 def reverseDFS(start, tmpList, listData, visited):
     global calStack
@@ -26,13 +21,6 @@ def reverseDFS(start, tmpList, listData, visited):
         if i[0] == start and visited[i[1]] == False:
             reverseDFS(i[1], tmpList, listData, visited)
 
-
-def changeListData(listData):
-    tmpList = []
-    for i in listData:
-        tmpList.append([i[1], i[0]])
-
-    return tmpList
 
 def DFS(start, listData, visited):
     global tmpStack, calStack
@@ -47,6 +35,7 @@ def DFS(start, listData, visited):
 
 V, E = map(int, input().split())
 listData = []
+reversed_listData = []
 visited = [False]*(V+1)
 
 for i in range(E):
@@ -55,7 +44,11 @@ for i in range(E):
     tmpList.append(A)
     tmpList.append(B)
     listData.append(tmpList)
-reversed_listData = changeListData(listData)
+
+    tmpList = []
+    tmpList.append(B)
+    tmpList.append(A)
+    reversed_listData.append(tmpList)
 
 for i in range(1, V+1):
     DFS(i, listData, visited)
