@@ -1,0 +1,51 @@
+import sys
+sys.setrecursionlimit(10**6)
+
+answer = []
+stack = []
+visitedAnswer = []
+
+def DFS(start, dataList, visited):
+    global stack
+    visited[start] = True
+    for data in dataList:
+        if data[0] == start and visited[data[1]] == False:
+            DFS(data[1], dataList, visited)
+    stack.append(start)
+
+def reverseDFS(start, dataList, visited, scc):
+    visited[start] = True
+    for data in dataList:
+        if data[0] == start and visited[data[1]] == False:
+            scc.append(data[1])
+            reverseDFS(data[1], dataList, visited, scc)
+    return scc
+
+
+D = int(input())
+L = int(input())
+
+
+dataList = []
+reverse_dataList = []
+visited = [False]*(D+1)
+
+for i in range(L):
+    tmpA, tmpB = map(int, input().split())
+    dataList.append([tmpA, tmpB])
+    reverse_dataList.append([tmpB, tmpA])
+
+for i in range(1, D+1):
+    if visited[i] == False:
+        DFS(i, dataList, visited)
+
+visited = [False]*(D+1)
+
+while stack:
+    data = stack.pop()
+    if visited[data] == False:
+        scc = [data]
+        answer.append(reverseDFS(data, reverse_dataList, visited, scc))
+
+print(len(max(answer, key=len)))
+
