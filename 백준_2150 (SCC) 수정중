@@ -51,7 +51,8 @@ for i in range(E):
     reversed_listData.append(tmpList)
 
 for i in range(1, V+1):
-    DFS(i, listData, visited)
+    if visited[i] == False:
+        DFS(i, listData, visited)
 
 
 visited = [False]*(V+1)
@@ -69,4 +70,3 @@ print(len(answerList))
 
 for i in answerList:
     print(*i, -1)
-
